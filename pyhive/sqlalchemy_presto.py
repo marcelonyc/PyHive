@@ -9,6 +9,7 @@ from __future__ import absolute_import
 from __future__ import unicode_literals
 
 import re
+import json
 from sqlalchemy import exc
 from sqlalchemy import types
 from sqlalchemy import util
@@ -96,6 +97,9 @@ class PrestoDialect(default.DefaultDialect):
             'username': url.username,
             'password': url.password
         }
+        req_kwargs = url.query.pop('requests_kwargs')
+        if req_kwargs:
+            kwargs['requests_kwargs'] = json.loads(req_kwargs)
         kwargs.update(url.query)
         if len(db_parts) == 1:
             kwargs['catalog'] = db_parts[0]
