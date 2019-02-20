@@ -97,8 +97,8 @@ class PrestoDialect(default.DefaultDialect):
             'username': url.username,
             'password': url.password
         }
-        req_kwargs = url.query.pop('requests_kwargs')
-        if req_kwargs:
+        if 'requests_kwargs' in url.query:
+            req_kwargs = url.query.pop('requests_kwargs')
             kwargs['requests_kwargs'] = json.loads(req_kwargs)
         kwargs.update(url.query)
         if len(db_parts) == 1:
