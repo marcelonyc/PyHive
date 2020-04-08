@@ -118,7 +118,8 @@ class PrestoDialect(default.DefaultDialect):
         if schema:
             full_table = self.identifier_preparer.quote_identifier(schema) + '.' + full_table
         try:
-            return connection.execute('SHOW COLUMNS FROM {}'.format(full_table))
+            #return connection.execute('SHOW COLUMNS FROM {}'.format(full_table))
+            return
         except (presto.DatabaseError, exc.DatabaseError) as e:
             # Normally SQLAlchemy should wrap this exception in sqlalchemy.exc.DatabaseError, which
             # it successfully does in the Hive version. The difference with Presto is that this
